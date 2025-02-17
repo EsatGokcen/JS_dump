@@ -14,6 +14,7 @@ export function getGrade(score) {
     }
   }
   
+// TESTS
 /* console.log(getGrade(96));
 console.log(getGrade(82));
 console.log(getGrade(56)); */

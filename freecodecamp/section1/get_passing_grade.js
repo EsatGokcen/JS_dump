@@ -1,6 +1,6 @@
 import { getGrade } from './get_grade.js';
 
-function hasPassingGrade(score) {
+export function hasPassingGrade(score) {
     if (getGrade(score) === "F") {
         return false;
     } else {
@@ -9,7 +9,7 @@ function hasPassingGrade(score) {
 }
   
   
-  
-console.log(hasPassingGrade(100));
+// TESTS
+/* console.log(hasPassingGrade(100));
 console.log(hasPassingGrade(53));
-console.log(hasPassingGrade(87));
+console.log(hasPassingGrade(87)); */
