@@ -1,4 +1,4 @@
-function getGrade(score) {
+export function getGrade(score) {
     if (score === 100) {
       return "A++";
     } else if (90 <= score && score <= 99) {
@@ -14,6 +14,6 @@ function getGrade(score) {
     }
   }
   
-console.log(getGrade(96));
+/* console.log(getGrade(96));
 console.log(getGrade(82));
-console.log(getGrade(56));
+console.log(getGrade(56)); */

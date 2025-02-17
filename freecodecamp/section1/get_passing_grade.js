@@ -1,4 +1,4 @@
-// from get_grade import getGrade - python syntax does not work...
+import { getGrade } from './get_grade.js';
 
 function hasPassingGrade(score) {
     if (getGrade(score) === "F") {
