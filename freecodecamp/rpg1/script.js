@@ -84,3 +84,15 @@ function buyHealth() {
     text.innerText = "You do not have enough gold to buy health.";
   }
 }
+
+function buyWeapon() {
+
+}
+
+function fightSlime() {
+
+}
+
+function fightBeast() {
+
+}
