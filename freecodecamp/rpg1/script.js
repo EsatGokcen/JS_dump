@@ -40,6 +40,30 @@ const locations = [
     "button text": ["Fight slime", "Fight fanged beast", "Go to town square"],
     "button functions": [fightSlime, fightBeast, goTown],
     text: "You enter the cave. You see some monsters."
+  },
+  {
+    name: "fight",
+    "button text": ["Attack", "Dodge", "Run"],
+    "button functions": [attack, dodge, goTown],
+    text: "You are fighting a monster."
+  },
+  {
+    name: "kill monster",
+    "button text": ["Go to town square", "Go to town square", "Go to town square"],
+    "button functions": [goTown, goTown, goTown],
+    text: 'The monster screams "Arg!" as it dies. You gain experience points and find gold.'
+  },
+  {
+    name: "lose",
+    "button text": ["REPLAY?", "REPLAY?", "REPLAY?"],
+    "button functions": [restart, restart, restart],
+    text: "You die. &#x2620;"
+  },
+  { 
+    name: "win", 
+    "button text": ["REPLAY?", "REPLAY?", "REPLAY?"], 
+    "button functions": [restart, restart, restart], 
+    text: "You defeat the dragon! YOU WIN THE GAME! &#x1F389;" 
   }
 ];
 
@@ -169,4 +193,12 @@ function defeatMonster() {
   goldText.innerText = gold;
   xpText.innerText = xp;
   update(locations[4]);
+}
+
+function lose() {
+  update(locations[5]);
+}
+
+function winGame() {
+  update(locations[6]);
 }
