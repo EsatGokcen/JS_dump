@@ -1,7 +1,7 @@
 let xp = 0;
 let health = 100;
 let gold = 50;
-let currentWeaponIndex = 0;
+let currentWeapon = 0;
 let fighting;
 let monsterHealth;
 let inventory = ["stick"];
@@ -22,6 +22,23 @@ const weapons = [
   { name: 'claw hammer', power: 50 },
   { name: 'sword', power: 100 }
 ];
+const monsters = [
+  {
+    name: "slime",
+    level: 2,
+    health: 15
+  },
+  {
+    name: "fanged beast",
+    level: 8,
+    health: 60
+  },
+  {
+    name: "dragon",
+    level: 20,
+    health: 300
+  }
+]
 const locations = [
   {
     name: "town square",
@@ -79,13 +96,14 @@ button2.onclick = goCave;
 button3.onclick = fightDragon;
 
 function update(location) {
+  monsterStats.style.display = "none";
   button1.innerText = location["button text"][0];
   button2.innerText = location["button text"][1];
   button3.innerText = location["button text"][2];
   button1.onclick = location["button functions"][0];
   button2.onclick = location["button functions"][1];
   button3.onclick = location["button functions"][2];
-  text.innerText = location.text;
+  text.innerHTML = location.text;
 }
 
 function goTown() {
@@ -100,10 +118,6 @@ function goCave() {
   update(locations[2]);
 }
 
-function fightDragon() {
-  console.log("Fighting dragon.");
-}
-
 function buyHealth() {
   if (gold >= 10) {
     gold -= 10;
@@ -116,12 +130,12 @@ function buyHealth() {
 }
 
 function buyWeapon() {
-  if (currentWeaponIndex < weapons.length - 1) {
+  if (currentWeapon < weapons.length - 1) {
     if (gold >= 30) {
       gold -= 30;
-      currentWeaponIndex++;
+      currentWeapon++;
       goldText.innerText = gold;
-      let newWeapon = weapons[currentWeaponIndex].name;
+      let newWeapon = weapons[currentWeapon].name;
       text.innerText = "You now have a " + newWeapon + ".";
       inventory.push(newWeapon);
       text.innerText += " In your inventory you have: " + inventory;
@@ -134,7 +148,6 @@ function buyWeapon() {
     button2.onclick = sellWeapon;
   }
 }
-
 
 function sellWeapon() {
   if (inventory.length > 1) {
@@ -173,9 +186,13 @@ function goFight() {
 
 function attack() {
   text.innerText = "The " + monsters[fighting].name + " attacks.";
-  text.innerText += " You attack it with your " + weapons[currentWeaponIndex].name + ".";
+  text.innerText += " You attack it with your " + weapons[currentWeapon].name + ".";
   health -= getMonsterAttackValue(monsters[fighting].level);
-  monsterHealth -= weapons[currentWeaponIndex].power + Math.floor(Math.random() * xp) + 1;
+  if (isMonsterHit()) {
+    monsterHealth -= weapons[currentWeapon].power + Math.floor(Math.random() * xp) + 1;    
+  } else {
+    text.innerText += " You miss.";
+  }
   healthText.innerText = health;
   monsterHealthText.innerText = monsterHealth;
   if (health <= 0) {
@@ -187,6 +204,20 @@ function attack() {
       defeatMonster();
     }
   }
+  if (Math.random() <= .1 && inventory.length !== 1) {
+    text.innerText += " Your " + inventory.pop() + " breaks.";
+    currentWeapon--;
+  }
+}
+
+function getMonsterAttackValue(level) {
+  const hit = (level * 5) - (Math.floor(Math.random() * xp));
+  console.log(hit);
+  return hit > 0 ? hit : 0;
+}
+
+function isMonsterHit() {
+  return Math.random() > .2 || health < 20;
 }
 
 function dodge() {
@@ -213,7 +244,7 @@ function restart() {
   xp = 0;
   health = 100;
   gold = 50;
-  currentWeaponIndex = 0;
+  currentWeapon = 0;
   inventory = ["stick"];
   goldText.innerText = gold;
   healthText.innerText = health;
@@ -223,6 +254,14 @@ function restart() {
 
 function easterEgg() {
   update(locations[7]);
+}
+
+function pickTwo() {
+  pick(2);
+}
+
+function pickEight() {
+  pick(8);
 }
 
 function pick(guess) {
