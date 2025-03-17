@@ -52,3 +52,5 @@ function cleanInputString(str) {
     }
     return calories;
   }
+
+  addEntryButton.addEventListener("click", addEntry);
