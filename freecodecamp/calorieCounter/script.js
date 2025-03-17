@@ -11,15 +11,15 @@ function cleanInputString(str) {
     return str.replace(regex, '');
   }
 
-  function isInvalidInput(str) {
+function isInvalidInput(str) {
     const regex = /\d+e\d+/i;
     return str.match(regex);
   }
 
-  function addEntry() {
-    const targetInputContainer = document.querySelector(`#${entryDropdown.value} .input-container`);
-    const entryNumber = targetInputContainer.querySelectorAll('input[type="text"]').length + 1;
-    const HTMLString = `
+function addEntry() {
+  const targetInputContainer = document.querySelector(`#${entryDropdown.value} .input-container`);
+  const entryNumber = targetInputContainer.querySelectorAll('input[type="text"]').length + 1;
+  const HTMLString = `
     <label for="${entryDropdown.value}-${entryNumber}-name">Entry ${entryNumber} Name</label>
     <input 
         type="text" 
@@ -33,35 +33,35 @@ function cleanInputString(str) {
       id="${entryDropdown.value}-${entryNumber}-calories"
       placeholder="Calories"
     />`;
-    targetInputContainer.insertAdjacentHTML('beforeend', HTMLString);
-  }
+  targetInputContainer.insertAdjacentHTML('beforeend', HTMLString);
+}
 
-  function getCaloriesFromInputs(list) {
-    let calories = 0;
+function calculateCalories(e) {
+  e.preventDefault();
+  isError = false;
   
-    for (const item of list) {
-      const currVal = cleanInputString(item.value);
-      const invalidInputMatch = isInvalidInput(currVal);
+  const breakfastNumberInputs = document.querySelectorAll("#breakfast input[type='number']");
+  const lunchNumberInputs = document.querySelectorAll("#lunch input[type='number']");
+  const dinnerNumberInputs = document.querySelectorAll("#dinner input[type='number']");
+  const snacksNumberInputs = document.querySelectorAll("#snacks input[type='number']");
+  const exerciseNumberInputs = document.querySelectorAll("#exercise input[type='number']");
+}
+
+function getCaloriesFromInputs(list) {
+  let calories = 0;
   
-      if (invalidInputMatch) {
-        alert(`Invalid Input: ${invalidInputMatch[0]}`);
-        isError = true;
-        return null;
-      }
-      calories += Number(currVal);
+  for (const item of list) {
+    const currVal = cleanInputString(item.value);
+    const invalidInputMatch = isInvalidInput(currVal);
+  
+    if (invalidInputMatch) {
+      alert(`Invalid Input: ${invalidInputMatch[0]}`);
+      isError = true;
+      return null;
     }
-    return calories;
+    calories += Number(currVal);
   }
+  return calories;
+}
 
-  addEntryButton.addEventListener("click", addEntry);
-
-  function calculateCalories(e) {
-    e.preventDefault();
-    isError = false;
-  
-    const breakfastNumberInputs = document.querySelectorAll("#breakfast input[type='number']");
-    const lunchNumberInputs = document.querySelectorAll("#lunch input[type='number']");
-    const dinnerNumberInputs = document.querySelectorAll("#dinner input[type='number']");
-    const snacksNumberInputs = document.querySelectorAll("#snacks input[type='number']");
-    const exerciseNumberInputs = document.querySelectorAll("#exercise input[type='number']");
-  }
+addEntryButton.addEventListener("click", addEntry);
